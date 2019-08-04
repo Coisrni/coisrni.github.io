@@ -1,0 +1,704 @@
+<!DOCTYPE HTML>
+<html lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="杨乐乐吖">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="Monjodb,Mysql">
+
+
+    <meta name="description" content="##Mongodb数据库与mysql的对比
+
+            传统的关系数据库一般由数据库（database）、表（table）、记录（record）三个层次概念组成，MongoDB是由...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>Mongodb与mysql数据库的区别 | 杨乐乐吖</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="杨乐乐吖" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner3.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='yanglele'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">杨乐乐吖</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/前端/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/后端/"><i class="fa "></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Mongodb与mysql数据库的区别">
+            
+	            Mongodb与mysql数据库的区别
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/后端/">后端</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/Monjodb/">Monjodb</a> <a class="tag-link" href="/tags/Mysql/">Mysql</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/08/04</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>##Mongodb数据库与mysql的对比</p>
+<div id="content">
+            传统的关系数据库一般由数据库（database）、表（table）、记录（record）三个层次概念组成，<strong><font style="COLOR: #ff0000">MongoDB是由数据库（database）、集合（collection）、文档对象（document）三个层次组成</font></strong>。MongoDB对于关系型数据库里的表，但是集合中没有列、行和关系概念，这体现了模式自由的特点。<br><br>
+<table border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td valign="top">
+<p align="center"><strong>MySQL</strong></p></td>
+<td valign="top">
+<p align="center"><strong>MongoDB</strong></p></td>
+<td valign="top">
+<p align="center"><strong>说明</strong></p></td></tr>
+<tr>
+<td valign="top">
+<p>mysqld</p></td>
+<td valign="top">
+<p>mongod</p></td>
+<td valign="top">
+<p>服务器守护进程</p></td></tr>
+<tr>
+<td valign="top">
+<p>mysql</p></td>
+<td valign="top">
+<p>mongo</p></td>
+<td valign="top">
+<p>客户端工具</p></td></tr>
+<tr>
+<td valign="top">
+<p>mysqldump</p></td>
+<td valign="top">
+<p>mongodump</p></td>
+<td valign="top">
+<p>逻辑备份工具</p></td></tr>
+<tr>
+<td valign="top">
+<p>mysql</p></td>
+<td valign="top">
+<p>mongorestore</p></td>
+<td valign="top">
+<p>逻辑恢复工具</p></td></tr>
+<tr>
+<td valign="top">&nbsp;</td>
+<td valign="top">
+<p>db.repairDatabase()</p></td>
+<td valign="top">
+<p>修复数据库</p></td></tr>
+<tr>
+<td valign="top">
+<p>mysqldump</p></td>
+<td valign="top">
+<p>mongoexport</p></td>
+<td valign="top">
+<p>数据导出工具</p></td></tr>
+<tr>
+<td valign="top">
+<p>source</p></td>
+<td valign="top">
+<p>mongoimport</p></td>
+<td valign="top">
+<p>数据导入工具</p></td></tr>
+<tr>
+<td valign="top">
+<p>grant * privileges on *.* to …</p></td>
+<td valign="top">
+<p>Db.addUser()</p>
+<p>Db.auth()</p></td>
+<td valign="top">
+<p>新建用户并权限</p></td></tr>
+<tr>
+<td valign="top">
+<p>show databases</p></td>
+<td valign="top">
+<p>show dbs</p></td>
+<td valign="top">
+<p>显示库列表</p></td></tr>
+<tr>
+<td valign="top">
+<p>Show tables</p></td>
+<td valign="top">
+<p>Show collections</p></td>
+<td valign="top">
+<p>显示表列表</p></td></tr>
+<tr>
+<td valign="top">
+<p>Show slave status</p></td>
+<td valign="top">
+<p>Rs.status</p></td>
+<td valign="top">
+<p>查询主从状态</p></td></tr>
+<tr>
+<td valign="top">
+<p>Create table users(a int, b int)</p></td>
+<td valign="top">
+<p>db.createCollection("mycoll", {capped:true,</p>
+<p>size:100000}) 另：可隐式创建表。</p></td>
+<td valign="top">
+<p>创建表</p></td></tr>
+<tr>
+<td valign="top">
+<p>Create INDEX idxname ON users(name)</p></td>
+<td valign="top">
+<p>db.users.ensureIndex({name:1})</p></td>
+<td valign="top">
+<p>创建索引</p></td></tr>
+<tr>
+<td valign="top">
+<p>Create INDEX idxname ON users(name,ts DESC)</p></td>
+<td valign="top">
+<p>db.users.ensureIndex({name:1,ts:-1})</p></td>
+<td valign="top">
+<p>创建索引</p></td></tr>
+<tr>
+<td valign="top">
+<p>Insert into users values(1, 1)</p></td>
+<td valign="top">
+<p>db.users.insert({a:1, b:1})</p></td>
+<td valign="top">
+<p>插入记录</p></td></tr>
+<tr>
+<td valign="top">
+<p>Select a, b from users</p></td>
+<td valign="top">
+<p>db.users.find({},{a:1, b:1})</p></td>
+<td valign="top">
+<p>查询表</p></td></tr>
+<tr>
+<td valign="top">
+<p>Select * from users</p></td>
+<td valign="top">
+<p>db.users.find()</p></td>
+<td valign="top">
+<p>查询表</p></td></tr>
+<tr>
+<td valign="top">
+<p>Select * from users where age=33</p></td>
+<td valign="top">
+<p>db.users.find({age:33})</p></td>
+<td valign="top">
+<p>条件查询</p></td></tr>
+<tr>
+<td valign="top">
+<p>Select a, b from users where age=33</p></td>
+<td valign="top">
+<p>db.users.find({age:33},{a:1, b:1})</p></td>
+<td valign="top">
+<p>条件查询</p></td></tr>
+<tr>
+<td valign="top">
+<p>select * from users where age&lt;33</p></td>
+<td valign="top">
+<p>db.users.find({'age':{$lt:33}})</p></td>
+<td valign="top">
+<p>条件查询</p></td></tr>
+<tr>
+<td valign="top">
+<p>select * from users where age&gt;33 and age&lt;=40</p></td>
+<td valign="top">
+<p>db.users.find({'age':{$gt:33,$lte:40}})</p></td>
+<td valign="top">
+<p>条件查询</p></td></tr>
+<tr>
+<td valign="top">
+<p>select * from users where a=1 and b='q'</p></td>
+<td valign="top">
+<p>db.users.find({a:1,b:'q'})</p></td>
+<td valign="top">
+<p>条件查询</p></td></tr>
+<tr>
+<td valign="top">
+<p>select * from users where a=1 or b=2</p></td>
+<td valign="top">
+<p>db.users.find( { $or : [ { a : 1 } , { b : 2 } ] } )</p></td>
+<td valign="top">
+<p>条件查询</p></td></tr>
+<tr>
+<td valign="top">
+<p>select * from users limit 1</p></td>
+<td valign="top">
+<p>db.users.findOne()</p></td>
+<td valign="top">
+<p>条件查询</p></td></tr>
+<tr>
+<td valign="top">
+<p>select * from users where name like "%Joe%"</p></td>
+<td valign="top">
+<p>db.users.find({name:/Joe/})</p></td>
+<td valign="top">
+<p>模糊查询</p></td></tr>
+<tr>
+<td valign="top">
+<p>select * from users where name like "Joe%"</p></td>
+<td valign="top">
+<p>db.users.find({name:/^Joe/})</p></td>
+<td valign="top">
+<p>模糊查询</p></td></tr>
+<tr>
+<td valign="top">
+<p>select count(1) from users</p></td>
+<td valign="top">
+<p>Db.users.count()</p></td>
+<td valign="top">
+<p>获取表记录数</p></td></tr>
+<tr>
+<td valign="top">
+<p>select count(1) from users where age&gt;30</p></td>
+<td valign="top">
+<p>db.users.find({age: {'$gt': 30}}).count()</p></td>
+<td valign="top">
+<p>获取表记录数</p></td></tr>
+<tr>
+<td valign="top">
+<p>select DISTINCT last_name from users</p></td>
+<td valign="top">
+<p>db.users.distinct('last_name')</p></td>
+<td valign="top">
+<p>去掉重复值</p></td></tr>
+<tr>
+<td valign="top">
+<p>select * from users ORDER BY name</p></td>
+<td valign="top">
+<p>db.users.find().sort({name:-1})</p></td>
+<td valign="top">
+<p>排序</p></td></tr>
+<tr>
+<td valign="top">
+<p>select * from users ORDER BY name DESC</p></td>
+<td valign="top">
+<p>db.users.find().sort({name:-1})</p></td>
+<td valign="top">
+<p>排序</p></td></tr>
+<tr>
+<td valign="top">
+<p>EXPLAIN select * from users where z=3</p></td>
+<td valign="top">
+<p>db.users.find({z:3}).explain()</p></td>
+<td valign="top">
+<p>获取存储路径</p></td></tr>
+<tr>
+<td valign="top">
+<p>update users set a=1 where b='q'</p></td>
+<td valign="top">
+<p>db.users.update({b:'q'}, {$set:{a:1}}, false, true)</p></td>
+<td valign="top">
+<p>更新记录</p></td></tr>
+<tr>
+<td valign="top">
+<p>update users set a=a+2 where b='q'</p></td>
+<td valign="top">
+<p>db.users.update({b:'q'}, {$inc:{a:2}}, false, true)</p></td>
+<td valign="top">
+<p>更新记录</p></td></tr>
+<tr>
+<td valign="top">
+<p>delete from users where z="abc"</p></td>
+<td valign="top">
+<p>db.users.remove({z:'abc'})</p></td>
+<td valign="top">
+<p>删除记录</p></td></tr>
+<tr>
+<td valign="top">&nbsp;</td>
+<td valign="top">
+<p>db. users.remove()</p></td>
+<td valign="top">
+<p>删除所有的记录</p></td></tr>
+<tr>
+<td valign="top">
+<p>drop database IF EXISTS test;</p></td>
+<td valign="top">
+<p>use test</p>
+<p>db.dropDatabase()</p></td>
+<td valign="top">
+<p>删除数据库</p></td></tr>
+<tr>
+<td valign="top">
+<p>drop table IF EXISTS test;</p></td>
+<td valign="top">
+<p>db.mytable.drop()</p></td>
+<td valign="top">
+<p>删除表/collection</p></td></tr>
+<tr>
+<td valign="top">&nbsp;</td>
+<td valign="top">
+<p>db.addUser(‘test', 'test')</p></td>
+<td valign="top">
+<p>添加用户</p>
+<p>readOnly--&gt;false</p></td></tr>
+<tr>
+<td valign="top">&nbsp;</td>
+<td valign="top">
+<p>db.addUser(‘test', 'test', true)</p></td>
+<td valign="top">
+<p>添加用户</p>
+<p>readOnly--&gt;true</p></td></tr>
+<tr>
+<td valign="top">&nbsp;</td>
+<td valign="top">
+<p>db.addUser("test","test222")</p></td>
+<td valign="top">
+<p>更改密码</p></td></tr>
+<tr>
+<td valign="top">&nbsp;</td>
+<td valign="top">
+<p>db.system.users.remove({user:"test"})</p>
+<p>或者db.removeUser('test')</p></td>
+<td valign="top">
+<p>删除用户</p></td></tr>
+<tr>
+<td valign="top">&nbsp;</td>
+<td valign="top">
+<p>use admin</p></td>
+<td valign="top">
+<p>超级用户</p></td></tr>
+<tr>
+<td valign="top">&nbsp;</td>
+<td valign="top">
+<p>db.auth(‘test', ‘test')</p></td>
+<td valign="top">
+<p>用户授权</p></td></tr>
+<tr>
+<td valign="top">&nbsp;</td>
+<td valign="top">
+<p>db.system.users.find()</p></td>
+<td valign="top">
+<p>查看用户列表</p></td></tr>
+<tr>
+<td valign="top">&nbsp;</td>
+<td valign="top">
+<p>show users</p></td>
+<td valign="top">
+<p>查看所有用户</p></td></tr>
+<tr>
+<td valign="top">&nbsp;</td>
+<td valign="top">
+<p>db.printCollectionStats()</p></td>
+<td valign="top">
+<p>查看各collection的状态</p></td></tr>
+<tr>
+<td valign="top">&nbsp;</td>
+<td valign="top">
+<p>db.printReplicationInfo()</p></td>
+<td valign="top">
+<p>查看主从复制状态</p></td></tr>
+<tr>
+<td valign="top">&nbsp;</td>
+<td valign="top">
+<p>show profile</p></td>
+<td valign="top">
+<p>查看profiling</p></td></tr>
+<tr>
+<td valign="top">&nbsp;</td>
+<td valign="top">
+<p>db.copyDatabase('mail_addr','mail_addr_tmp')</p></td>
+<td valign="top">
+<p>拷贝数据库</p></td></tr>
+<tr>
+<td valign="top">&nbsp;</td>
+<td valign="top">
+<p>db.users.dataSize()</p></td>
+<td valign="top">
+<p>查看collection数据的大小</p></td></tr>
+<tr>
+<td valign="top">&nbsp;</td>
+<td valign="top">
+<p>db. users.totalIndexSize()</p></td>
+<td valign="top">
+<p>查询索引的大小</p></td></tr></tbody></table>
+<p></p><strong><font style="BACKGROUND-COLOR: #ffff00">mongodb语法<br></font></strong>MongoDB的好处挺多的，比如多列索引，查询时可以用一些统计函数，支持多条件查询，但是目前多表查询是不支持的，可以想办法通过数据冗余来解决多表查询的问题。<br>MongoDB对数据的操作很丰富，下面做一些举例说明，内容大部分来自官方文档，另外有部分为自己理解。<br><br>查询colls所有数据<br>db.colls.find() //select * from colls <br>通过指定条件查询<br>db.colls.find({‘last_name': ‘Smith'});//select * from colls where last_name='Smith' <br>指定多条件查询<br>db.colls.find( { x : 3, y : “foo” } );//select * from colls where x=3 and y='foo'<br><br>指定条件范围查询<br>db.colls.find({j: {$ne: 3}, k: {$gt: 10} });//select * from colls where j!=3 and k&gt;10<br><br>查询不包括某内容<br>db.colls.find({}, {a:0});//查询除a为0外的所有数据<br><br>支持&lt;, &lt;=, &gt;, &gt;=查询，需用符号替代分别为$lt，$lte，$gt，$gte<br>db.colls.find({ “field” : { $gt: value } } ); <br>db.colls.find({ “field” : { $lt: value } } ); <br>db.colls.find({ “field” : { $gte: value } } );<br>db.colls.find({ “field” : { $lte: value } } );<br><br>也可对某一字段做范围查询<br>db.colls.find({ “field” : { $gt: value1, $lt: value2 } } );<br><br>不等于查询用字符$ne<br>db.colls.find( { x : { $ne : 3 } } );<br><br>in查询用字符$in<br>db.colls.find( { “field” : { $in : array } } );<br>db.colls.find({j:{$in: [2,4,6]}});<br><br>not in查询用字符$nin<br>db.colls.find({j:{$nin: [2,4,6]}});<br><br>取模查询用字符$mod<br>db.colls.find( { a : { $mod : [ 10 , 1 ] } } )// where a % 10 == 1<br><br>$all查询<br>db.colls.find( { a: { $all: [ 2, 3 ] } } );//指定a满足数组中任意值时<br><br>$size查询<br>db.colls.find( { a : { $size: 1 } } );//对对象的数量查询，此查询查询a的子对象数目为1的记录<br><br>$exists查询<br>db.colls.find( { a : { $exists : true } } ); // 存在a对象的数据<br>db.colls.find( { a : { $exists : false } } ); // 不存在a对象的数据<br><br>$type查询$type值为bsonhttp://bsonspec.org/数 据的类型值<br>db.colls.find( { a : { $type : 2 } } ); // 匹配a为string类型数据<br>db.colls.find( { a : { $type : 16 } } ); // 匹配a为int类型数据<br><br>使用正则表达式匹配<br>db.colls.find( { name : /acme.*corp/i } );//类似于SQL中like<br><br>内嵌对象查询<br>db.colls.find( { “author.name” : “joe” } );<br><br>1.3.3版本及更高版本包含$not查询<br>db.colls.find( { name : { $not : /acme.*corp/i } } );<br>db.colls.find( { a : { $not : { $mod : [ 10 , 1 ] } } } );<br><br>sort()排序<br>db.colls.find().sort( { ts : -1 } );//1为升序2为降序<br><br>limit()对限制查询数据返回个数<br>db.colls.find().limit(10)<br><br>skip()跳过某些数据<br>db.colls.find().skip(10)<br><br>snapshot()快照保证没有重复数据返回或对象丢失<br><br>count()统计查询对象个数<br>db.students.find({‘address.state' : ‘CA'}).count();//效率较高<br>db.students.find({‘address.state' : ‘CA'}).toArray().length;//效率很低<br><br>group()对查询结果分组和SQL中group by函数类似<br>distinct()返回不重复值
+</div>
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="http://yanglele.xyz/images/wx.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">www.yanglele.xyz</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/08/04/Nodejs与Mongodb相关操作/" class="pre-post btn btn-default" title='Nodejs与Mongodb相关操作'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">Nodejs与Mongodb相关操作</span>
+        </a>
+    
+    
+        <a href="/2019/08/02/hexo如何搭建专属博客/" class="next-post btn btn-default" title='hexo如何搭建专属博客'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">hexo如何搭建专属博客</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: true,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <p>暂无目录</p>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2019
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>

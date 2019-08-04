@@ -18,10 +18,12 @@
     <link rel="dns-prefetch" href="http://yoursite.com">
     <!--SEO-->
 
-    <meta name="keywords" content>
+    <meta name="keywords" content="nodejs,Mongodb">
 
 
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any ...">
+    <meta name="description" content="##在Nodejs中使用Mongodb
+1.安装Mongodb的依赖
+npm install mongodb -save-dev2.创建数据库要在 MongoDB 中创建一个数据库，首先我们需要...">
 
 
 
@@ -33,7 +35,7 @@
     <!--Title-->
 
 
-<title>Hello World | 杨乐乐吖</title>
+<title>Nodejs与Mongodb相关操作 | 杨乐乐吖</title>
 
 
     <link rel="alternate" href="/atom.xml" title="杨乐乐吖" type="application/atom+xml">
@@ -138,16 +140,16 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="Hello World">
+        <h1 id="Nodejs与Mongodb相关操作">
             
-	            Hello World
+	            Nodejs与Mongodb相关操作
             
         </h1>
         <div class="post-meta">
     
         <span class="categories-meta fa-wrap">
             <i class="fa fa-folder-open-o"></i>
-            <a class="category-link" href="/categories/小工具/">小工具</a>
+            <a class="category-link" href="/categories/前端/">前端</a> <a class="category-link" href="/categories/前端/后端/">后端</a>
         </span>
     
 
@@ -155,6 +157,8 @@
         <span class="fa-wrap">
             <i class="fa fa-tags"></i>
             <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/Mongodb/">Mongodb</a> <a class="tag-link" href="/tags/nodejs/">nodejs</a>
                 
             </span>
         </span>
@@ -164,7 +168,7 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2019/08/01</span>
+            <span class="date-meta">2019/08/04</span>
         </span>
         
             <span class="fa-wrap">
@@ -179,20 +183,124 @@
     </div>
     
     <div class="post-body post-content">
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <p>##在Nodejs中使用Mongodb</p>
+<p>1.安装Mongodb的依赖</p>
+<pre><code>npm install mongodb -save-dev</code></pre><p>2.创建数据库<br>要在 MongoDB 中创建一个数据库，首先我们需要创建一个 MongoClient 对象，然后配置好指定的 URL 和 端口号。</p>
+<p>如果数据库不存在，MongoDB 将创建数据库并建立连接。</p>
+<p>#创建连接</p>
+<pre><code>var MongoClient = require(&apos;mongodb&apos;).MongoClient;
+  var url = &quot;mongodb://localhost:27017/runoob&quot;; 
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+   if (err) throw err;
+   console.log(&quot;数据库已创建!&quot;);
+   db.close();
+ })</code></pre><p>#创建集合<br>    var MongoClient = require(‘mongodb’).MongoClient;<br>    var url = ‘mongodb://localhost:27017/runoob’;<br>    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {<br>    if (err) throw err;<br>    console.log(‘数据库已创建’);<br>    var dbase = db.db(“runoob”);<br>    dbase.createCollection(‘site’, function (err, res) {<br>    if (err) throw err;<br>    console.log(“创建集合!”);<br>    db.close();<br>    });<br>    });</p>
+<p>##数据库操作</p>
+<p>#插入数据 insertOne()<br>以下实例我们连接数据库 runoob 的 site 表，并插入一条数据条数据，使用 insertOne()：</p>
+<pre><code>var MongoClient = require(&apos;mongodb&apos;).MongoClient;
+var url = &quot;mongodb://localhost:27017/&quot;;
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+if (err) throw err;
+var dbo = db.db(&quot;runoob&quot;);
+var myobj = { name: &quot;菜鸟教程&quot;, url: &quot;www.runoob&quot; };
+dbo.collection(&quot;site&quot;).insertOne(myobj, function(err, res) {
+if (err) throw err;
+console.log(&quot;文档插入成功&quot;);
+db.close();
+});
+});</code></pre><p>#插入多条数据 insertMany()</p>
+<pre><code>var MongoClient = require(&apos;mongodb&apos;).MongoClient;
+var url = &quot;mongodb://localhost:27017/&quot;;
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+if (err) throw err;
+var dbo = db.db(&quot;runoob&quot;);
+var myobj =  [
+{ name: &apos;菜鸟工具&apos;, url: &apos;https://c.runoob.com&apos;, type: &apos;cn&apos;},
+{ name: &apos;Google&apos;, url: &apos;https://www.google.com&apos;, type: &apos;en&apos;},
+{ name: &apos;Facebook&apos;, url: &apos;https://www.google.com&apos;, type: &apos;en&apos;}
+   ];
+dbo.collection(&quot;site&quot;).insertMany(myobj, function(err, res) {
+if (err) throw err;
+console.log(&quot;插入的文档数量为: &quot; + res.insertedCount);
+db.close();
+});
+});</code></pre><p>#查询数据 find()</p>
+<pre><code>var MongoClient = require(&apos;mongodb&apos;).MongoClient;
+var url = &quot;mongodb://localhost:27017/&quot;;
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
+MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+if (err) throw err;
+var dbo = db.db(&quot;runoob&quot;);
+dbo.collection(&quot;site&quot;). find({}).toArray(function(err, result) { // 返回集合中所有数据
+if (err) throw err;
+console.log(result);
+db.close();
+});
+});</code></pre><p>#指定条件查询<br>    var MongoClient = require(‘mongodb’).MongoClient;<br>    var url = “mongodb://localhost:27017/“;</p>
+<pre><code>MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+if (err) throw err;
+var dbo = db.db(&quot;runoob&quot;);
+ var whereStr = {&quot;name&quot;:&apos;菜鸟教程&apos;};  // 查询条件
+dbo.collection(&quot;site&quot;).find(whereStr).toArray(function(err, result) {
+if (err) throw err;
+console.log(result);
+db.close();
+});
+});</code></pre><p>#查询指定的条件的数据<br>    var MongoClient = require(‘mongodb’).MongoClient;<br>    var url = “mongodb://localhost:27017/“;</p>
+<pre><code>MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+if (err) throw err;
+var dbo = db.db(&quot;runoob&quot;);
+ var whereStr = {&quot;name&quot;:&apos;菜鸟教程&apos;};  // 查询条件
+dbo.collection(&quot;site&quot;).find(whereStr).toArray(function(err, result) {
+if (err) throw err;
+console.log(result);
+db.close();
+});
+});</code></pre><p>#更新数据 一条updateOne()<br>        var MongoClient = require(‘mongodb’).MongoClient;<br>    var url = “mongodb://localhost:27017/“;</p>
+<pre><code>MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+if (err) throw err;
+var dbo = db.db(&quot;runoob&quot;);
+var whereStr = {&quot;name&quot;:&apos;菜鸟教程&apos;};  // 查询条件
+var updateStr = {$set: { &quot;url&quot; : &quot;https://www.runoob.com&quot; }};
+dbo.collection(&quot;site&quot;).updateOne(whereStr, updateStr, function(err, res) {
+if (err) throw err;
+console.log(&quot;文档更新成功&quot;);
+db.close();
+});
+});</code></pre><p>#更新多条数据 updateMany()<br>    var MongoClient = require(‘mongodb’).MongoClient;<br>    var url = “mongodb://localhost:27017/“;</p>
+<pre><code>MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+if (err) throw err;
+var dbo = db.db(&quot;runoob&quot;);
+var whereStr = {&quot;type&quot;:&apos;en&apos;};  // 查询条件
+var updateStr = {$set: { &quot;url&quot; : &quot;https://www.runoob.com&quot; }};
+dbo.collection(&quot;site&quot;).updateMany(whereStr, updateStr, function(err, res) {
+if (err) throw err;
+ console.log(res.result.nModified + &quot; 条文档被更新&quot;);
+db.close();
+});
+});</code></pre><p>#删除数据 一条deleteOne()<br>    var MongoClient = require(‘mongodb’).MongoClient;<br>    var url = “mongodb://localhost:27017/“;</p>
+<pre><code>MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+if (err) throw err;
+var dbo = db.db(&quot;runoob&quot;);
+var whereStr = {&quot;name&quot;:&apos;菜鸟教程&apos;};  // 查询条件
+dbo.collection(&quot;site&quot;).deleteOne(whereStr, function(err, obj) {
+if (err) throw err;
+console.log(&quot;文档删除成功&quot;);
+db.close();
+});
+});</code></pre><p>#删除多条<br>    var MongoClient = require(‘mongodb’).MongoClient;<br>    var url = “mongodb://localhost:27017/“;</p>
+<pre><code>MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+if (err) throw err;
+var dbo = db.db(&quot;runoob&quot;);
+var whereStr = { type: &quot;en&quot; };  // 查询条件
+dbo.collection(&quot;site&quot;).deleteMany(whereStr, function(err, obj) {
+if (err) throw err;
+console.log(obj.result.n + &quot; 条文档被删除&quot;);
+db.close();
+});
+});</code></pre>
     </div>
     
         <div class="reward" ontouchstart>
@@ -225,11 +333,11 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2019/08/01/文章/" class="pre-post btn btn-default" title='文章'>
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">文章</span>
-        </a>
     
+        <a href="/2019/08/04/Mongodb与mysql数据库的区别/" class="next-post btn btn-default" title='Mongodb与mysql数据库的区别'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Mongodb与mysql数据库的区别</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
     
 </div>
 
@@ -271,7 +379,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+            <p>暂无目录</p>
         
     </div>
 </aside>
